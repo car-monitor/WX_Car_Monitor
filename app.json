@@ -1,12 +1,42 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+  "pages": [
+    "pages/home/home",
+    "pages/car/car",
+    "pages/driver/driver",
+    "pages/order/order"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f00",
+    "navigationBarTitleText": "车辆监控系统",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "主页",
+        "iconPath": "image/home.png",
+        "selectedIconPath": "image/home-s.png"
+      },
+      {
+        "pagePath": "pages/car/car",
+        "text": "车辆",
+        "iconPath": "image/car.png",
+        "selectedIconPath": "image/car-s.png"
+      },
+      {
+        "pagePath": "pages/driver/driver",
+        "text": "驾驶员",
+        "iconPath": "image/driver.png",
+        "selectedIconPath": "image/driver-s.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "image/order.png",
+        "selectedIconPath": "image/order-s.png"
+      }
+    ]
   }
 }
