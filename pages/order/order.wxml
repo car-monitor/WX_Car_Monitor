@@ -1,0 +1,32 @@
+<view class="box">
+  <view class="top-box">
+    <view class="date">2017-6-30</view>
+    <view class="operate">正在进行</view>
+  </view>
+  <view class="text">从大学城北 到</view>
+  <view class="text">从大学城南</view>
+</view>
+<view class="box">
+  <view class="top-box">
+    <view class="date">2017-6-30</view>
+    <view class="operate">正在进行</view>
+  </view>
+  <view class="text">从大学城北 到</view>
+  <view class="text">从大学城南</view>
+</view>
+<view class="box">
+  <view class="top-box">
+    <view class="date">2017-6-30</view>
+    <view class="operate">正在进行</view>
+  </view>
+  <view class="text">从大学城北 到</view>
+  <view class="text">从大学城南</view>
+</view>
+<view class="box">
+  <view class="top-box">
+    <view class="date">2017-6-30</view>
+    <view class="operate">正在进行</view>
+  </view>
+  <view class="text">从大学城北 到</view>
+  <view class="text">从大学城南</view>
+</view>
