@@ -5,7 +5,7 @@ Page({
     centerX: 113.3245211,
     centerY: 23.10229,
     markers: [],
-    /*polyline: [{
+    polyline: [{
        points: [{
          longitude: 108.962926,
          latitude: 34.238489
@@ -14,14 +14,17 @@ Page({
          latitude: 34.238489
        }],
        color:"#FF0000DD",
-       width: 20,
+       width: 5,
        dottedLine: true,
        borderColor: true
      }],
-    circles:[{
-      longitude: 113.3245211,
-      latitude: 23.10229,
-      radius:50
+    /*circles: [{
+      latitude: '40.007153',
+      longitude: '116.491081',
+      color: '#FF0000DD',
+      fillColor: '#7cb5ec88',
+      radius: 400,
+      strokeWidth: 2
     }],*/
     controls: [{
       id: 1,
@@ -52,7 +55,7 @@ Page({
         this.setData({
           centerX: longitude,
           centerY: latitude,
-          markers: this.getSchoolMarkers()
+          markers: this.getMarkers()
         })
       }
     });
@@ -67,7 +70,7 @@ Page({
     console.log(e.controlId)
     this.moveToLocation()
   },
-  getSchoolMarkers() {
+  getMarkers() {
     let markers = [];
     for (let item of schoolData) {
       let marker = this.createMarker(item);
