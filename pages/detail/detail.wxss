@@ -1,0 +1,17 @@
+/* detail.wxss */
+.box {
+  border-bottom: 1px solid #e5e5e5;
+  padding:3vw;
+  font-size:4vw;
+}
+.title{
+  font-size: 5vw;
+  font-weight: bold;
+}
+.not-finished {
+  color: red;
+}
+.text{
+  padding: 1vw 0;
+  color: #333;
+}

@@ -3,7 +3,7 @@ let schoolData = require('../../resource/data')
 Page({
   data: {
     centerX: 113.3245211,
-    centerY: 23.10229,
+    centerY: 33.10229,
     markers: [],
     polyline: [{
        points: [{
@@ -40,11 +40,12 @@ Page({
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文 
-    this.mapCtx = wx.createMapContext('myMap')
+    this.mapCtx = wx.createMapContext('map');
+    this.mapCtx.moveToLocation();
   },
   onLoad: function () {
     console.log('地图定位！')
-    let that = this
+    let that = this;
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success: (res) => {
@@ -56,7 +57,7 @@ Page({
           centerX: longitude,
           centerY: latitude,
           markers: this.getMarkers()
-        })
+        });
       }
     });
   },
@@ -64,11 +65,17 @@ Page({
     console.log(e.type)
   },
   markertap(e) {
-    console.log(e)
+    console.log(e);
+    wx.navigateTo({
+      url: '../detail/detail',
+    })
+    // wx.switchTab({
+    //   url: '../car/car',
+    // })
   },
   controltap(e) {
     console.log(e.controlId)
-    this.moveToLocation()
+    this.mapCtx.moveToLocation()
   },
   getMarkers() {
     let markers = [];
@@ -78,7 +85,8 @@ Page({
     }
     return markers;
   },
-  moveToLocation: function () {
+  moveToLocation: function() {
+    console.log('move');
     this.mapCtx.moveToLocation()
   },
   createMarker(point) {

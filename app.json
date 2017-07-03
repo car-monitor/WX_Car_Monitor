@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/detail/detail",
     "pages/car/car",
     "pages/driver/driver",
     "pages/order/order"
@@ -12,6 +13,7 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
+    "selectedColor": "#07BB04",
     "list": [
       {
         "pagePath": "pages/home/home",
