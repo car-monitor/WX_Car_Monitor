@@ -3,8 +3,8 @@
     "pages/home/home",
     "pages/detail/detail",
     "pages/car/car",
-    "pages/driver/driver",
-    "pages/order/order"
+    "pages/order/order",
+    "pages/driver/driver"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,3 +1,6 @@
+let orderData = require('../../resource/order');
+let driverData = require('../../resource/driver');
+let carData = require('../../resource/car');
 Page({
   data: {
     // map related
@@ -11,17 +14,17 @@ Page({
       dottedLine: true,
       borderColor: true
     }],
-    controls: [{
-      id: 1,
-      iconPath: '/image/location-control.png',
-      position: {
-        left: 0,
-        top: 10,
-        width: 40,
-        height: 40
-      },
-      clickable: true
-    }],
+    // controls: [{
+    //   id: 1,
+    //   iconPath: '/image/location-control.png',
+    //   position: {
+    //     left: 0,
+    //     top: 10,
+    //     width: 40,
+    //     height: 40
+    //   },
+    //   clickable: true
+    // }],
     order: {
       longtitudeStart: 113.264435,
       latitudeStart: 23.129163,
@@ -49,28 +52,69 @@ Page({
       speed: '120',
       temperature: '20',
       mileague: '300'
+    },
+    status: {
+
     }
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文 
     this.mapCtx = wx.createMapContext('map');
-    this.mapCtx.moveToLocation();
+    this.mapCtx.includePoints({ points: this.orderSelected.routes});
   },
-  onLoad: function () {
+  getDataFromArray: function(arr, field, value){
+    var match = arr.filter(function(elem) {
+      return (elem[field] == value);
+    });
+    return match[0] || {};
+  },
+  orderSelected: {},
+  onLoad: function (option) {
     let that = this;
-    console.log(this);
-    wx.getLocation({
-      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-      success: (res) => {
-        console.log(res)
-        let latitude = res.latitude;
-        let longitude = res.longitude;
-        let marker = this.createMarker(res);
-        this.setData({
-          centerX: longitude,
-          centerY: latitude,
-        });
+    let orderId = option.id;
+    console.log(option);
+    this.orderSelected = this.getDataFromArray(orderData, 'id', orderId);
+    console.log(this.orderSelected);
+    this.setData({
+      order: this.orderSelected,
+      car: this.getDataFromArray(carData, 'id', this.orderSelected.carID),
+      driver: this.getDataFromArray(driverData, 'id', this.orderSelected.driverId),
+      status: this.orderSelected.carStatuses[this.orderSelected.carStatuses.length - 1]
+    });
+    // console.log(orderSelected.carStatuses[orderSelected.carStatuses.length - 1]);
+    // map related 
+    let markers = [];
+    this.orderSelected.routes.forEach(function(elem, index, arr) {
+      function createMarker(point, width, height, index) {
+        let latitude = point.latitude;
+        let longitude = point.longitude;
+        let marker = {
+          iconPath: "/image/location.png",
+          id: index || 0,
+          name: point.name || '',
+          latitude: latitude,
+          longitude: longitude,
+          width: width,
+          height: height
+        };
+        return marker;
       }
+        if (index === arr.length - 1) {
+          markers.push(createMarker(elem, 25, 48, index));
+        } else {
+          markers.push(createMarker(elem, 12, 24, index));
+        }
+    });
+    console.log(markers);
+    this.setData({
+      markers: markers,
+      polyline: [{
+        points: this.orderSelected.routes,
+        color: "#FF0000DD",
+        width: 5,
+        dottedLine: true,
+        borderColor: true
+      }]
     });
   },
   regionchange(e) {
@@ -78,23 +122,12 @@ Page({
   },
   markertap(e) {
     console.log(e);
+    this.setData({
+      status: this.orderSelected.carStatuses[e.markerId]
+    });
   },
   controltap(e) {
     console.log(e.controlId)
     this.mapCtx.moveToLocation()
-  },
-  createMarker(point) {
-    let latitude = point.latitude;
-    let longitude = point.longitude;
-    let marker = {
-      iconPath: "/image/location.png",
-      id: point.id || 0,
-      name: point.name || '',
-      latitude: latitude,
-      longitude: longitude,
-      width: 25,
-      height: 48
-    };
-    return marker;
   }
 })

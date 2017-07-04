@@ -66,9 +66,9 @@ Page({
   },
   markertap(e) {
     console.log(e);
-    wx.navigateTo({
-      url: '../detail/detail',
-    })
+    // wx.navigateTo({
+    //   url: '../detail/detail?id=' + e.markerId,
+    // })
     // wx.switchTab({
     //   url: '../car/car',
     // })

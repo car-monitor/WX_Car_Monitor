@@ -1,32 +1,8 @@
-<view class="box">
+<view class="box" wx:for="{{orders}}" data-id="{{item.id}}" bindtap="bindViewTap">
   <view class="top-box">
-    <view class="date">2017-6-30</view>
-    <view class="operate">正在进行</view>
+    <view class="date">{{item.startTime}}</view>
+    <view class="operate" wx:if="{{!item.isFinished}}">正在进行</view>
   </view>
-  <view class="text">从大学城北 到</view>
-  <view class="text">从大学城南</view>
-</view>
-<view class="box">
-  <view class="top-box">
-    <view class="date">2017-6-30</view>
-    <view class="operate">正在进行</view>
-  </view>
-  <view class="text">从大学城北 到</view>
-  <view class="text">从大学城南</view>
-</view>
-<view class="box">
-  <view class="top-box">
-    <view class="date">2017-6-30</view>
-    <view class="operate">正在进行</view>
-  </view>
-  <view class="text">从大学城北 到</view>
-  <view class="text">从大学城南</view>
-</view>
-<view class="box">
-  <view class="top-box">
-    <view class="date">2017-6-30</view>
-    <view class="operate">正在进行</view>
-  </view>
-  <view class="text">从大学城北 到</view>
-  <view class="text">从大学城南</view>
+  <view class="text">{{item.addressorAddress}} 到</view>
+  <view class="text">{{item.addresseeAddress}}</view>
 </view>
