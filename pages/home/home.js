@@ -1,24 +1,52 @@
 // map.js
 let WXData = require('../../resource/data')
+let wxd = require('../../resource/order')
 Page({
   data: {
     centerX: 113.3245211,
     centerY: 33.10229,
     markers: [],//标志点
-    /*point:[{
+    /*ppoint:[{
       longitude: 108.962926,
       latitude: 34.238489
     }],*/
     polyline: [{//路径
-       points: [{
-         longitude: 108.962926,
-         latitude: 34.238489
-       }, {
-         longitude: 118.962926,
-         latitude: 34.238489
-       }],
+      points: [{
+        longitude: 108.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }, {
+        longitude: 118.962926,
+        latitude: 34.238489
+      }],
        color:"#FF0000DD",
-       width: 5,
+       width: 10,
        dottedLine: true,
        borderColor: true
      }],
@@ -73,11 +101,33 @@ Page({
         console.log(res)
         let latitude = res.latitude;
         let longitude = res.longitude;
+      
         let marker = this.createMarker(res);
+        for (let item of wxd) {
+          //console.log('first');
+          //console.log(that.data.polyline.length);
+          //console.log('second');
+          //console.log(item);
+          if (item.isFinished == 0) {
+            let l = that.data.polyline.length;
+            that.data.polyline.push(that.data.polyline[l - 1]);
+            for (let i = 0; i < item.routes.length; i++) {
+              console.log("hhhhhh");
+              that.data.polyline[l - 1].points[i].longitude = item.routes[i].longitude;
+              that.data.polyline[l - 1].points[i].latitude = item.routes[i].latitude;
+            }
+            //console.log(that.data.polyline[0].points);
+          }
+          console.log(that.data.polyline.length);
+        /*console.log(that.data.polyline[0].points[9].longitude);
+        that.data.polyline[0].points[9].longitude =  90.00001;
+        console.log(that.data.polyline[0].points[9].longitude);*/
+          }
         this.setData({
           centerX: longitude,
           centerY: latitude,
-          markers: this.getMarkers()
+          markers: this.getMarkers(),
+          polyline : this.data.polyline
         });
       }
     });
@@ -110,6 +160,16 @@ Page({
     console.log('move');
     this.mapCtx.moveToLocation()
   },
+  /*creatpoint(point) {//获取数据
+    console.log("hhhhhh");
+    let latitude = point.latitude;
+    let longitude = point.longitude;
+    let p = {
+      latitude: latitude,
+      longitude: longitude
+    };
+    return p;
+  },*/
   createMarker(point) {//获取数据
     let latitude = point.latitude;
     let longitude = point.longitude;
