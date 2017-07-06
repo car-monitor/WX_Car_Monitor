@@ -68,12 +68,43 @@ Page({
     });
     return match[0] || {};
   },
+  getDataFromUrl: function(url, callback) {
+    wx.request({
+      url: url,
+      success: function (res) {
+        callback(res);
+      }
+    })
+  },
   orderSelected: {},
+  statusData: [],
+  routeData: [],
   onLoad: function (option) {
     let that = this;
     let orderId = option.id;
     console.log(option);
     this.orderSelected = this.getDataFromArray(orderData, 'id', orderId);
+    // for backend interface
+    /*
+    this.getDataFromUrl('/getorder?id=' + orderId, function(res) {
+      this.statusData = res.carstatus,
+      this.routeData = res.route,
+      this.setData({
+        order: res.order,
+        status: this.statusData[this.statusData.length - 1]
+      });
+      this.getDataFromUrl('/getcar?id=' + res.carID, function(res) {
+        this.setData({
+          car: res.car
+        });
+      });
+      this.getDataFromUrl('/getuser?id=' + res.driverId, function (res) {
+        this.setData({
+          driver: res.user
+        });
+      });
+    });
+    */
     console.log(this.orderSelected);
     this.setData({
       order: this.orderSelected,
@@ -85,6 +116,8 @@ Page({
     // map related 
     let markers = [];
     this.orderSelected.routes.forEach(function(elem, index, arr) {
+    // for backend interface
+    // this.route.forEach(function (elem, index, arr) {
       function createMarker(point, width, height, index) {
         let latitude = point.latitude;
         let longitude = point.longitude;
