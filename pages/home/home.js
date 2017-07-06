@@ -1,11 +1,15 @@
 // map.js
-let schoolData = require('../../resource/data')
+let WXData = require('../../resource/data')
 Page({
   data: {
     centerX: 113.3245211,
     centerY: 33.10229,
-    markers: [],
-    polyline: [{
+    markers: [],//标志点
+    /*point:[{
+      longitude: 108.962926,
+      latitude: 34.238489
+    }],*/
+    polyline: [{//路径
        points: [{
          longitude: 108.962926,
          latitude: 34.238489
@@ -26,6 +30,22 @@ Page({
       radius: 400,
       strokeWidth: 2
     }],*/
+    /*order: {        //后端写好后会用到
+      longtitudeStart: 113.264435,
+      latitudeStart: 23.129163,
+      longtitudeEnd: 114.264435,
+      latitudeEnd: 25.129163,
+      isFinished: false,
+      scheduledStartTime: '2017年7月4日12：00',
+      scheduledEndTime: '2017年7月4日13：00',
+      senderName: '张三',
+      senderPhone: '15620000000',
+      senderAddress: '广州市中山大学南校区',
+      receiverName: '李四',
+      receiverPhone: '13512345678',
+      receiverAddress: '广州市中山大学东校区',
+      sealInitial: '123123'
+    },*/
     controls: [{
       id: 1,
       iconPath: '/image/location-control.png',
@@ -46,6 +66,7 @@ Page({
   onLoad: function () {
     console.log('地图定位！')
     let that = this;
+
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success: (res) => {
@@ -79,7 +100,7 @@ Page({
   },
   getMarkers() {
     let markers = [];
-    for (let item of schoolData) {
+    for (let item of WXData) {
       let marker = this.createMarker(item);
       markers.push(marker)
     }
@@ -89,7 +110,7 @@ Page({
     console.log('move');
     this.mapCtx.moveToLocation()
   },
-  createMarker(point) {
+  createMarker(point) {//获取数据
     let latitude = point.latitude;
     let longitude = point.longitude;
     let marker = {
