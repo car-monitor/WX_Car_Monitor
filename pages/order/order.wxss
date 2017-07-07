@@ -1,13 +1,13 @@
 .box {
   border-bottom: 1px solid #e5e5e5;
-  height: 16vw;
+  height: 19vw;
   padding: 2.5vw;
   font-size: 4vw;
 }
 
 .top-box {
   display: flex;
-  margin-bottom: 2vw;
+  margin-bottom: 1.5vw;
 }
 
 .date {
@@ -19,8 +19,9 @@
   width: 50%;
   text-align: right;
   color: red;
+  padding-right:2vw;
 }
 
 .text {
- margin-bottom: 2vw;
+ margin-bottom: 1.5vw;
 }

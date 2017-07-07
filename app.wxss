@@ -8,3 +8,12 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+page {  
+  display: block;  
+  min-height: 100%;  
+  background-color: #f4f4f4;  
+  font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+  padding-left: 2vw;
+  padding-right: 2vw;
+} 
