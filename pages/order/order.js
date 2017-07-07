@@ -9,10 +9,10 @@ Page({
 
   },
   orders: {},
-  onLoad: function (option) {
+  onShow: function (option) {
     let that = this;
-    let carId = option.carId || -1;
-    let driverId = option.driverId || -1;
+    let carId = getApp().carSelected || -1;
+    let driverId = getApp().driverSelected || -1;
     let params = '?';
     if (carId != -1) {
       params += 'carid=' + carId;

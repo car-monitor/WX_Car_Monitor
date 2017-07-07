@@ -1,5 +1,5 @@
 // map.js
-let WXData = require('../../resource/data')
+// let WXData = require('../../resource/data')
 let wxd = require('../../resource/order')
 Page({
   data: {
@@ -91,6 +91,8 @@ Page({
     this.mapCtx = wx.createMapContext('map');
     this.mapCtx.moveToLocation();
   },
+  polylineData: [],
+  markerData: [],
   onLoad: function () {
     console.log('地图定位！')
     let that = this;
@@ -101,21 +103,40 @@ Page({
         console.log(res)
         let latitude = res.latitude;
         let longitude = res.longitude;
-      
         let marker = this.createMarker(res);
-        for (let item of wxd) {
+        let i = 0, len = wxd.length;
+        for (i; i < len; ++i) {
+          let item = wxd[i];
           //console.log('first');
           //console.log(that.data.polyline.length);
           //console.log('second');
           //console.log(item);
           if (item.isFinished == 0) {
-            let l = that.data.polyline.length;
+            this.polylineData.push({
+              points: item.routes,
+              color: "#FF0000DD",
+              width: 5,
+              dottedLine: true,
+              borderColor: true
+            });
+            this.markerData.push({
+              iconPath: "/image/location.png",
+              id: item.id || 0,
+              name: '',
+              latitude: item.routes[item.routes.length-1].latitude,
+              longitude: item.routes[item.routes.length - 1].longitude,
+              width: 25,
+              height: 48
+            });
+            console.log(this.markerData);
+            /*let l = that.data.polyline.length;
             that.data.polyline.push(that.data.polyline[l - 1]);
             for (let i = 0; i < item.routes.length; i++) {
               console.log("hhhhhh");
               that.data.polyline[l - 1].points[i].longitude = item.routes[i].longitude;
               that.data.polyline[l - 1].points[i].latitude = item.routes[i].latitude;
-            }
+            }*/
+
             //console.log(that.data.polyline[0].points);
           }
           console.log(that.data.polyline.length);
@@ -126,8 +147,8 @@ Page({
         this.setData({
           centerX: longitude,
           centerY: latitude,
-          markers: this.getMarkers(),
-          polyline : this.data.polyline
+          markers: this.markerData,
+          polyline : this.polylineData
         });
       }
     });
@@ -137,9 +158,9 @@ Page({
   },
   markertap(e) {
     console.log(e);
-    // wx.navigateTo({
-    //   url: '../detail/detail?id=' + e.markerId,
-    // })
+    wx.navigateTo({
+      url: '../detail/detail?id=' + e.markerId,
+    })
     // wx.switchTab({
     //   url: '../car/car',
     // })
@@ -148,14 +169,14 @@ Page({
     console.log(e.controlId)
     this.mapCtx.moveToLocation()
   },
-  getMarkers() {
+  /*getMarkers() {
     let markers = [];
     for (let item of WXData) {
       let marker = this.createMarker(item);
       markers.push(marker)
     }
     return markers;
-  },
+  },*/
   moveToLocation: function() {
     console.log('move');
     this.mapCtx.moveToLocation()

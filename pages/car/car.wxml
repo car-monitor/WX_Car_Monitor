@@ -1,15 +1,3 @@
-<view class="box">
-粤A-123456
-</view>
-<view class="box">
-粤A-123456
-</view>
-<view class="box">
-粤A-123456
-</view>
-<view class="box">
-粤A-123456
-</view>
-<view class="box">
-粤A-123456
+<view class="box" wx:for="{{cars}}" data-id="{{item.id}}" bindtap="bindViewTap">
+  {{item.carPlate}}
 </view>

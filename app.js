@@ -26,5 +26,7 @@ App({
   },
   globalData: {
     userInfo: null
-  }
+  },
+  driverSelected: -1,
+  carSelected: -1
 })
